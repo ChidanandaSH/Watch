@@ -1,0 +1,12 @@
+{% extends 'main.html' %} {% block first %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <div class="form-box">
+    {{form.as_p}}
+    <button type="submit" class="submit_button">Login</button>
+    <a class="submit_button" type="button" href="{% url 'signup' %}">Signup</a>
+  </div>
+</form>
+
+{% endblock %}

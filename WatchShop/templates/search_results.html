@@ -1,0 +1,10 @@
+{% for watch in results %}
+    <div>
+        <p>click the link</p>
+        <a href="{% url 'product_detail' watch.id %}">{{ watch.name }}</a>
+
+
+    </div>
+{% empty %}
+    <p>No results found.</p>
+{% endfor %}

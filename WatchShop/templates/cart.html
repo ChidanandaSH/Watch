@@ -1,0 +1,55 @@
+{% extends "main.html" %}
+{% block first %}
+{% for item in user_product %}
+<div class="container mt-5">
+    <div class="row">
+    <div class="col-md-6">
+    <img src="{{ item.product.image.url }}" alt="notable to view" class="card-img-top"/> 
+    </div>
+    <div class="col-md-6">
+        <h2>{{item.product.name}}</h2>
+        <h3>{{item.product.price}}</h3>
+        <p>{{item.poduct.description}}</p>
+        <div>
+            <p>Quantity: {{item.product.count}}</p>
+            <button class="btn btn-outline-secondary" id="decrementBtn">-</button>
+            <input
+            type="number"
+            class="form-control text-center"
+            value="{{item.cart_count}}"
+            min="1"
+            id="inputBtn"
+            />
+            <button  class="btn btn-outline-secondary" id="incrementBtn">+</button>
+            </div>
+        <a href="{% url 'remove_cart' id=item.id %}" class="btn btn-primary"> Remove</a>
+    </div>
+    </div>
+    </div>
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const decrementBtn = document.getElementById("decrementBtn"); 
+    const incrementBtn = document.getElementById("incrementBtn"); 
+    const inputBtn = document.getElementById("inputBtn");
+    
+    decrementBtn.addEventListener("click", function () {
+       UpdateQuantity(-1);
+    });
+
+    incrementBtn.addEventListener("click", function () {
+       UpdateQuantity(1);
+    });
+    function UpdateQuantity (change) {
+        let currentValue = parseInt(inputBtn.value);
+        let newValue = currentValue + change;
+
+        if (newalue < 1) {
+           newValue - 1;
+        }
+        inputBtn.value - newValue;
+    }
+});
+</script>
+{% endfor %}    
+{% endblock %}

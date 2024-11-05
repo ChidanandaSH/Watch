@@ -1,0 +1,42 @@
+{% extends "main.html" %}
+{% block first %}
+<div class="container mt-5">
+<div class="row">
+<div class="col-md-6">
+<img src="{{ product.image.url }}" alt="notable to view" class="card-img-top"/> 
+</div>
+<div class="col-md-6">
+    <h2>{{product.name}}</h2>
+    <h3>{{product.price}}</h3>
+    <p>{{product.description}}</p>
+</div>   
+</div>
+{% for review in reviews %}
+<div class="col-md-6">
+    <h2>Name:{{review.user.username}}</h2>
+    <h3>Rating:{{review.rating}}</h3>
+    <p>Review: {{review.review}}</p>
+</div>
+{% endfor %}
+<h3>Add a Review</h3>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="review">Review:</label>
+        <textarea name="review" rows="4" class="form-control" placeholder="Enter your review here">{{ form.review.value }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="rating">Rating:</label>
+        <select name="rating" class="form-control">
+            <option value="">Select a rating</option>
+            {% for i in "12345" %}
+                <option value="{{ i }}" {% if form.rating.value == i %}selected{% endif %}>{{ i }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Review</button>
+</form>
+
+
+</div>
+{% endblock %}
