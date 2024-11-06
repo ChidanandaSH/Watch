@@ -43,6 +43,7 @@ def product(request,id):
 
 
 #wishlist
+@login_required(login_url="/login")
 def add_wishlist(request,id):
     user = request.user
     product = WatchesUploads.objects.get(id=id)
@@ -50,12 +51,12 @@ def add_wishlist(request,id):
     obj1.products.add(product)
     obj1.save()
     return redirect('home')
-
+@login_required(login_url="/login")
 def wishlist(request):
     user = request.user
     wish_objcet = Wishlist.objects.get( user = user)
     return render(request,"wishlist.html",{"user_product":wish_objcet.products.all()})
-
+@login_required(login_url="/login")
 def remove_wish(request,id):
     product_re = WatchesUploads.objects.get(id=id)  
     wish_object =Wishlist.objects.get(user=request.user)
@@ -64,6 +65,7 @@ def remove_wish(request,id):
 
 
 #cart
+@login_required(login_url="/login")
 def add_cart(request,id):
     user_cart, created = Cart.objects.get_or_create(user = request.user)
     product = WatchesUploads.objects.get(id=id)
@@ -71,12 +73,12 @@ def add_cart(request,id):
     cart_item.product= product
     cart_item.save()
     return redirect('home')
-
+@login_required(login_url="/login")
 def cart(request):
     user_cart, created = Cart.objects.get_or_create(user=request.user)
     cart_objcet = user_cart.cartitem_set.all()
     return render(request,"cart.html",{"user_product":cart_objcet})
-
+@login_required(login_url="/login")
 def remove_cart(request,id):
     product_re = WatchesUploads.objects.get(id=id)  
     cart_object =Cart.objects.get(user=request.user)
